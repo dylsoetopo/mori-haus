@@ -12,19 +12,29 @@
       font-style: normal;
     }
 
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
       background-color: #F3E7DF;
       color: #1C358F;
       font-family: 'Sailors', sans-serif;
+      font-size: 24px;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       text-align: center;
-      overflow: hidden;
-      font-size: 20px;
     }
 
     .fade-text, .password-screen, .cherie-screen, .final-text, .invitation-link {
@@ -33,6 +43,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-bottom: 20px;
     }
 
     .visible {
@@ -44,12 +55,11 @@
     }
 
     .invitation-link {
-      margin-top: 20px;
-      font-size: 1.2em;
+      font-size: 1.5em;
       text-decoration: none;
       color: #1C358F;
       border: 2px solid #1C358F;
-      padding: 10px 20px;
+      padding: 14px 26px;
       border-radius: 6px;
       transition: opacity 1s ease-in-out, background 0.3s;
     }
@@ -62,7 +72,7 @@
     #passwordInput {
       font-family: 'Sailors', sans-serif;
       font-size: 1.2em;
-      padding: 8px;
+      padding: 10px;
       margin-top: 10px;
       border: 2px solid #1C358F;
       color: #1C358F;
@@ -71,22 +81,24 @@
     }
 
     .cherie-screen img {
-      width: 220px;
+      width: 260px;
       margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div id="text" class="fade-text">psst... you're invited</div>
-  <div id="passwordScreen" class="password-screen">
-    <div>enter password</div>
-    <input id="passwordInput" type="text" placeholder="password...">
+  <div class="container">
+    <div id="text" class="fade-text">psst... you're invited</div>
+    <div id="passwordScreen" class="password-screen">
+      <div>enter password</div>
+      <input id="passwordInput" type="text" placeholder="password...">
+    </div>
+    <div id="cherieScreen" class="cherie-screen">
+      <img src="cherie_static_image.png" alt="Cherie illustration">
+    </div>
+    <div id="finalText" class="final-text"></div>
+    <a id="inviteLink" class="invitation-link" href="https://drive.google.com/file/d/1qCXpBX6B_6OCUNFuOTup9M70y8wxTmZc/view?usp=sharing" target="_blank">CLICK TO SEE YOUR INVITATION</a>
   </div>
-  <div id="cherieScreen" class="cherie-screen">
-    <img src="cherie_static_image.png" alt="Cherie illustration">
-  </div>
-  <div id="finalText" class="final-text"></div>
-  <a id="inviteLink" class="invitation-link" href="https://drive.google.com/file/d/1qCXpBX6B_6OCUNFuOTup9M70y8wxTmZc/view?usp=sharing" target="_blank">CLICK TO SEE YOUR INVITATION</a>
 
   <script>
     window.onload = function () {
@@ -99,7 +111,7 @@
 
       const params = new URLSearchParams(window.location.search);
       const name = params.get('name');
-      const welcomeText = name ? `welcome to Mori Haus, ${decodeURIComponent(name)}` : "welcome to Mori Haus";
+      const welcomeText = name ? `WELCOME TO MORI HAUS, ${decodeURIComponent(name).toUpperCase()}` : "WELCOME TO MORI HAUS";
 
       setTimeout(() => {
         textEl.classList.add('visible');
