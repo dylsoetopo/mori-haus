@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mori Haus Invitation</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #F3E7DF;
+      color: #1C358F;
+      font-family: Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .fade-text {
+      font-size: 2em;
+      letter-spacing: 2px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .invitation-link {
+      display: none;
+      margin-top: 30px;
+      font-size: 1.2em;
+      text-decoration: none;
+      color: #1C358F;
+      border: 2px solid #1C358F;
+      padding: 10px 20px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    .invitation-link:hover {
+      background-color: #1C358F;
+      color: #F3E7DF;
+    }
+  </style>
+</head>
+<body>
+  <div id="text" class="fade-text">psst... you're invited</div>
+  <a id="inviteLink" class="invitation-link" href="https://drive.google.com/file/d/1qCXpBX6B_6OCUNFuOTup9M70y8wxTmZc/view?usp=sharing" target="_blank">CLICK TO SEE YOUR INVITATION</a>
+
+  <script>
+    window.onload = function () {
+      const textEl = document.getElementById('text');
+      const linkEl = document.getElementById('inviteLink');
+
+      setTimeout(() => {
+        textEl.style.opacity = 1;
+      }, 500);
+
+      setTimeout(() => {
+        textEl.style.opacity = 0;
+      }, 2500);
+
+      setTimeout(() => {
+        textEl.textContent = "welcome to Mori Haus";
+        textEl.style.opacity = 1;
+      }, 3500);
+
+      setTimeout(() => {
+        linkEl.style.display = 'inline-block';
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
