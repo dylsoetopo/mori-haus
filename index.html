@@ -68,32 +68,39 @@
       const textEl = document.getElementById('text');
       const linkEl = document.getElementById('inviteLink');
 
-      // Show "psst..." first
+      // 1. Get name from URL
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get('name');
+      const welcomeText = name
+        ? `welcome to Mori Haus, ${decodeURIComponent(name)}`
+        : "welcome to Mori Haus";
+
+      // 2. "psst..." appears
       setTimeout(() => {
         textEl.style.opacity = 1;
       }, 500);
 
-      // Fade out "psst..."
+      // 3. Fade out "psst..."
       setTimeout(() => {
         textEl.style.opacity = 0;
       }, 2500);
 
-      // Change text to "welcome to Mori Haus" and fade in
+      // 4. Show personalized welcome message
       setTimeout(() => {
-        textEl.textContent = "welcome to Mori Haus";
+        textEl.textContent = welcomeText;
         textEl.style.opacity = 1;
       }, 3500);
 
-      // Slide text up slightly
+      // 5. Slide up slightly
       setTimeout(() => {
         textEl.classList.add('move-up');
       }, 4700);
 
-      // Fade in link under it
+      // 6. Fade in the invite button
       setTimeout(() => {
         linkEl.classList.add('visible');
       }, 5200);
-    }
+    };
   </script>
 </body>
 </html>
