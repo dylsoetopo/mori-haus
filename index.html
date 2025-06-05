@@ -26,11 +26,13 @@
       overflow: hidden;
     }
 
-    .fade-text {
-      font-size: 2em;
-      letter-spacing: 2px;
+    .fade-text, .password-screen, .cherie-screen, .final-text, .invitation-link {
       opacity: 0;
       transition: opacity 1s ease-in-out, transform 1s ease;
+    }
+
+    .visible {
+      opacity: 1;
     }
 
     .move-up {
@@ -38,7 +40,6 @@
     }
 
     .invitation-link {
-      opacity: 0;
       margin-top: 20px;
       font-size: 1.2em;
       text-decoration: none;
@@ -49,58 +50,88 @@
       transition: opacity 1s ease-in-out, background 0.3s;
     }
 
-    .invitation-link.visible {
-      opacity: 1;
-    }
-
     .invitation-link:hover {
       background-color: #1C358F;
       color: #F3E7DF;
+    }
+
+    #passwordInput {
+      font-family: 'Sailors', sans-serif;
+      font-size: 1.2em;
+      padding: 8px;
+      margin-top: 10px;
+      border: 2px solid #1C358F;
+      color: #1C358F;
+      background: #F3E7DF;
+    }
+
+    .cherie-screen img {
+      width: 220px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div id="text" class="fade-text">psst... you're invited</div>
+  <div id="passwordScreen" class="password-screen">
+    <div>enter password</div>
+    <input id="passwordInput" type="text" placeholder="password...">
+  </div>
+  <div id="cherieScreen" class="cherie-screen">
+    <img src="cherie_static_image.png" alt="Cherie illustration">
+  </div>
+  <div id="finalText" class="final-text"></div>
   <a id="inviteLink" class="invitation-link" href="https://drive.google.com/file/d/1qCXpBX6B_6OCUNFuOTup9M70y8wxTmZc/view?usp=sharing" target="_blank">CLICK TO SEE YOUR INVITATION</a>
 
   <script>
     window.onload = function () {
       const textEl = document.getElementById('text');
+      const passwordEl = document.getElementById('passwordScreen');
+      const inputEl = document.getElementById('passwordInput');
+      const cherieEl = document.getElementById('cherieScreen');
+      const finalEl = document.getElementById('finalText');
       const linkEl = document.getElementById('inviteLink');
 
-      // 1. Get name from URL
       const params = new URLSearchParams(window.location.search);
       const name = params.get('name');
-      const welcomeText = name
-        ? `welcome to Mori Haus, ${decodeURIComponent(name)}`
-        : "welcome to Mori Haus";
+      const welcomeText = name ? `welcome to Mori Haus, ${decodeURIComponent(name)}` : "welcome to Mori Haus";
 
-      // 2. "psst..." appears
       setTimeout(() => {
-        textEl.style.opacity = 1;
+        textEl.classList.add('visible');
       }, 500);
 
-      // 3. Fade out "psst..."
       setTimeout(() => {
-        textEl.style.opacity = 0;
+        textEl.classList.remove('visible');
       }, 2500);
 
-      // 4. Show personalized welcome message
       setTimeout(() => {
-        textEl.textContent = welcomeText;
-        textEl.style.opacity = 1;
+        passwordEl.classList.add('visible');
+        inputEl.focus();
       }, 3500);
 
-      // 5. Slide up slightly
-      setTimeout(() => {
-        textEl.classList.add('move-up');
-      }, 4700);
-
-      // 6. Fade in the invite button
-      setTimeout(() => {
-        linkEl.classList.add('visible');
-      }, 5200);
-    };
+      inputEl.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          if (inputEl.value.trim().toLowerCase() === 'cherie') {
+            passwordEl.classList.remove('visible');
+            cherieEl.classList.add('visible');
+            setTimeout(() => {
+              cherieEl.classList.remove('visible');
+              finalEl.textContent = welcomeText;
+              finalEl.classList.add('visible');
+            }, 3000);
+            setTimeout(() => {
+              finalEl.classList.add('move-up');
+            }, 4200);
+            setTimeout(() => {
+              linkEl.classList.add('visible');
+            }, 4700);
+          } else {
+            inputEl.value = '';
+            inputEl.placeholder = 'try again...';
+          }
+        }
+      });
+    }
   </script>
 </body>
 </html>
