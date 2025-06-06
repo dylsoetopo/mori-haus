@@ -29,6 +29,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      overflow-x: hidden;
     }
 
     .container {
@@ -62,6 +63,7 @@
       padding: 14px 26px;
       border-radius: 6px;
       transition: opacity 1s ease-in-out, background 0.3s;
+      cursor: pointer;
     }
 
     .invitation-link:hover {
@@ -84,6 +86,40 @@
       width: 260px;
       margin-top: 20px;
     }
+
+    .invite-image-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out;
+      z-index: 100;
+    }
+
+    .invite-image-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      transform: scale(0.95);
+      transition: transform 0.8s ease;
+    }
+
+    .invite-image-overlay.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .invite-image-overlay.visible img {
+      transform: scale(1);
+    }
   </style>
 </head>
 <body>
@@ -97,7 +133,11 @@
       <img src="cherie_static_image.png" alt="Cherie illustration">
     </div>
     <div id="finalText" class="final-text"></div>
-    <a id="inviteLink" class="invitation-link" href="https://drive.google.com/file/d/1qCXpBX6B_6OCUNFuOTup9M70y8wxTmZc/view?usp=sharing" target="_blank">CLICK TO SEE YOUR INVITATION</a>
+    <div id="inviteLink" class="invitation-link">CLICK TO SEE YOUR INVITATION</div>
+  </div>
+
+  <div id="inviteOverlay" class="invite-image-overlay">
+    <img src="mori_haus_invite_card.jpg" alt="Mori Haus Invitation">
   </div>
 
   <script>
@@ -108,6 +148,7 @@
       const cherieEl = document.getElementById('cherieScreen');
       const finalEl = document.getElementById('finalText');
       const linkEl = document.getElementById('inviteLink');
+      const overlayEl = document.getElementById('inviteOverlay');
 
       const params = new URLSearchParams(window.location.search);
       const name = params.get('name');
@@ -147,6 +188,10 @@
             inputEl.placeholder = 'try again...';
           }
         }
+      });
+
+      linkEl.addEventListener('click', function () {
+        overlayEl.classList.add('visible');
       });
     }
   </script>
