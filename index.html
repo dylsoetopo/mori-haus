@@ -39,6 +39,7 @@
       align-items: center;
       flex-grow: 1;
       min-height: 100vh;
+      transition: opacity 1s ease;
     }
 
     .fade-text, .password-screen, .cherie-screen, .final-text, .invitation-link {
@@ -146,7 +147,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: 30px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 101;
     }
 
     .final-wave img {
@@ -170,7 +175,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="mainContainer">
     <div id="text" class="fade-text">psst... you're invited</div>
     <div id="passwordScreen" class="password-screen">
       <div>enter password</div>
@@ -205,6 +210,7 @@
       const downloadBtn = document.getElementById('downloadBtn');
       const finalWave = document.getElementById('finalWave');
       const seeYouMsg = document.getElementById('seeYouMsg');
+      const mainContainer = document.getElementById('mainContainer');
 
       const params = new URLSearchParams(window.location.search);
       const name = params.get('name');
@@ -253,9 +259,13 @@
       downloadBtn.addEventListener('click', function () {
         setTimeout(() => {
           overlayEl.classList.remove('visible');
+          mainContainer.style.opacity = '0';
+        }, 500);
+        setTimeout(() => {
+          mainContainer.style.display = 'none';
           seeYouMsg.textContent = name ? `See you there, ${decodeURIComponent(name)}!` : "See you there!";
           finalWave.style.display = 'flex';
-        }, 1000);
+        }, 1500);
       });
     }
   </script>
