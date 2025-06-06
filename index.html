@@ -141,11 +141,31 @@
       font-family: 'Sailors', sans-serif;
     }
 
-    .see-you-message {
-      color: #F3E7DF;
-      font-size: 1.4em;
-      margin-top: 20px;
+    .final-wave {
       display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .final-wave img {
+      width: 140px;
+      animation: pawwave 1s infinite ease-in-out alternate;
+      transform-origin: bottom center;
+    }
+
+    @keyframes pawwave {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(-5deg); }
+      75% { transform: rotate(3deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .final-wave p {
+      font-size: 1.4em;
+      margin-top: 12px;
     }
   </style>
 </head>
@@ -166,7 +186,11 @@
   <div id="inviteOverlay" class="invite-image-overlay">
     <img id="inviteImage" src="mori_haus_invite_card.jpg" alt="Mori Haus Invitation">
     <a id="downloadBtn" class="download-button" download="MoriHaus_Invite.jpg" href="mori_haus_invite_card.jpg">Save Invitation</a>
-    <div id="seeYouMsg" class="see-you-message">See you there! ☕</div>
+  </div>
+
+  <div id="finalWave" class="final-wave">
+    <img src="cherie paw wave.png" alt="Cherie paw waving">
+    <p id="seeYouMsg"></p>
   </div>
 
   <script>
@@ -179,6 +203,7 @@
       const linkEl = document.getElementById('inviteLink');
       const overlayEl = document.getElementById('inviteOverlay');
       const downloadBtn = document.getElementById('downloadBtn');
+      const finalWave = document.getElementById('finalWave');
       const seeYouMsg = document.getElementById('seeYouMsg');
 
       const params = new URLSearchParams(window.location.search);
@@ -227,7 +252,9 @@
 
       downloadBtn.addEventListener('click', function () {
         setTimeout(() => {
-          seeYouMsg.style.display = 'block';
+          overlayEl.classList.remove('visible');
+          seeYouMsg.textContent = name ? `See you there, ${decodeURIComponent(name)}!` : "See you there!";
+          finalWave.style.display = 'flex';
         }, 1000);
       });
     }
