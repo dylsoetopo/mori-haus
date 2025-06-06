@@ -35,15 +35,21 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      height: 100vh;
+      width: 100%;
+      position: relative;
     }
 
-    .fade-text, .password-screen, .cherie-screen, .final-text, .invitation-link {
+    .step {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       opacity: 0;
-      transition: opacity 1s ease-in-out, transform 1s ease;
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 20px;
     }
 
     .visible {
@@ -51,7 +57,7 @@
     }
 
     .move-up {
-      transform: translateY(-20px);
+      transform: translate(-50%, -60%);
     }
 
     .invitation-link {
@@ -88,16 +94,16 @@
 </head>
 <body>
   <div class="container">
-    <div id="text" class="fade-text">psst... you're invited</div>
-    <div id="passwordScreen" class="password-screen">
+    <div id="text" class="step">psst... you're invited</div>
+    <div id="passwordScreen" class="step">
       <div>enter password</div>
       <input id="passwordInput" type="text" placeholder="password...">
     </div>
-    <div id="cherieScreen" class="cherie-screen">
+    <div id="cherieScreen" class="step">
       <img src="cherie_static_image.png" alt="Cherie illustration">
     </div>
-    <div id="finalText" class="final-text"></div>
-    <a id="inviteLink" class="invitation-link" href="https://drive.google.com/file/d/1qCXpBX6B_6OCUNFuOTup9M70y8wxTmZc/view?usp=sharing" target="_blank">CLICK TO SEE YOUR INVITATION</a>
+    <div id="finalText" class="step"></div>
+    <a id="inviteLink" class="step invitation-link" href="https://drive.google.com/file/d/1qCXpBX6B_6OCUNFuOTup9M70y8wxTmZc/view?usp=sharing" target="_blank">CLICK TO SEE YOUR INVITATION</a>
   </div>
 
   <script>
@@ -141,6 +147,7 @@
             }, 4200);
             setTimeout(() => {
               linkEl.classList.add('visible');
+              linkEl.classList.add('move-up');
             }, 4700);
           } else {
             inputEl.value = '';
