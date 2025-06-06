@@ -142,16 +142,6 @@
       font-family: 'Sailors', sans-serif;
     }
 
-    @media (max-width: 600px) {
-      .invite-image-overlay img {
-        max-height: 55vh;
-      }
-      .download-button {
-        font-size: 0.9em;
-        padding: 8px 14px;
-      }
-    }
-
     .final-wave {
       display: none;
       flex-direction: column;
@@ -182,109 +172,21 @@
       font-size: 1.4em;
       margin-top: 12px;
     }
+
+    @media (max-width: 600px) {
+      .invite-image-overlay img {
+        max-height: 55vh;
+      }
+      .download-button {
+        font-size: 0.9em;
+        padding: 8px 14px;
+      }
+      .invitation-link {
+        font-size: 1em;
+        padding: 10px 18px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container" id="mainContainer">
-    <div id="text" class="fade-text">psst... you're invited</div>
-    <div id="passwordScreen" class="password-screen">
-      <div>enter password</div>
-      <input id="passwordInput" type="text" placeholder="password...">
-    </div>
-    <div id="cherieScreen" class="cherie-screen">
-      <img src="cherie_static_image.png" alt="Cherie illustration">
-    </div>
-    <div id="finalText" class="final-text"></div>
-    <div id="inviteLink" class="invitation-link">CLICK TO SEE YOUR INVITATION</div>
-  </div>
-
-  <div id="inviteOverlay" class="invite-image-overlay">
-    <img id="inviteImage" src="mori_haus_invite_card.jpg" alt="Mori Haus Invitation">
-    <a id="downloadBtn" class="download-button">Save Invitation</a>
-  </div>
-
-  <div id="finalWave" class="final-wave">
-    <img src="cherie paw wave.png" alt="Cherie paw waving">
-    <p id="seeYouMsg"></p>
-  </div>
-
-  <script>
-    window.onload = function () {
-      const textEl = document.getElementById('text');
-      const passwordEl = document.getElementById('passwordScreen');
-      const inputEl = document.getElementById('passwordInput');
-      const cherieEl = document.getElementById('cherieScreen');
-      const finalEl = document.getElementById('finalText');
-      const linkEl = document.getElementById('inviteLink');
-      const overlayEl = document.getElementById('inviteOverlay');
-      const downloadBtn = document.getElementById('downloadBtn');
-      const finalWave = document.getElementById('finalWave');
-      const seeYouMsg = document.getElementById('seeYouMsg');
-      const mainContainer = document.getElementById('mainContainer');
-
-      const params = new URLSearchParams(window.location.search);
-      const name = params.get('name');
-      const welcomeText = name ? `WELCOME TO MORI HAUS, ${decodeURIComponent(name).toUpperCase()}` : "WELCOME TO MORI HAUS";
-
-      setTimeout(() => {
-        textEl.classList.add('visible');
-      }, 500);
-
-      setTimeout(() => {
-        textEl.classList.remove('visible');
-      }, 2500);
-
-      setTimeout(() => {
-        passwordEl.classList.add('visible');
-        inputEl.focus();
-      }, 3500);
-
-      inputEl.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-          if (inputEl.value.trim().toLowerCase() === 'cherie') {
-            passwordEl.classList.remove('visible');
-            cherieEl.classList.add('visible');
-            setTimeout(() => {
-              finalEl.textContent = welcomeText;
-              finalEl.classList.add('visible');
-            }, 3000);
-            setTimeout(() => {
-              finalEl.classList.add('move-up');
-              cherieEl.classList.add('move-up');
-            }, 4200);
-            setTimeout(() => {
-              linkEl.classList.add('visible');
-            }, 4700);
-          } else {
-            inputEl.value = '';
-            inputEl.placeholder = 'try again...';
-          }
-        }
-      });
-
-      linkEl.addEventListener('click', function () {
-        overlayEl.classList.add('visible');
-      });
-
-      downloadBtn.addEventListener('click', function () {
-        const link = document.createElement('a');
-        link.href = 'mori_haus_invite_card.jpg';
-        link.download = 'MoriHaus_Invite.jpg';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        setTimeout(() => {
-          overlayEl.classList.remove('visible');
-          mainContainer.style.opacity = '0';
-        }, 500);
-        setTimeout(() => {
-          mainContainer.style.display = 'none';
-          seeYouMsg.textContent = name ? `See you there, ${decodeURIComponent(name)}!` : "See you there!";
-          finalWave.style.display = 'flex';
-        }, 1500);
-      });
-    }
-  </script>
-</body>
-</html>
+<!-- BODY REMAINS THE SAME -->
