@@ -21,6 +21,7 @@
       color: #1C358F;
       font-family: 'Sailors', sans-serif;
       font-size: 24px;
+      overflow-x: hidden;
     }
 
     body {
@@ -29,7 +30,6 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      overflow-x: hidden;
     }
 
     .container {
@@ -45,6 +45,10 @@
       flex-direction: column;
       align-items: center;
       margin-bottom: 20px;
+    }
+
+    .fade-text {
+      margin-top: 20vh;
     }
 
     .visible {
@@ -95,6 +99,7 @@
       height: 100vh;
       background: rgba(0, 0, 0, 0.8);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       opacity: 0;
@@ -105,7 +110,7 @@
 
     .invite-image-overlay img {
       max-width: 90%;
-      max-height: 90%;
+      max-height: 80%;
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.6);
       transform: scale(0.95);
@@ -119,6 +124,25 @@
 
     .invite-image-overlay.visible img {
       transform: scale(1);
+    }
+
+    .download-button {
+      margin-top: 20px;
+      font-size: 1em;
+      padding: 10px 20px;
+      color: #F3E7DF;
+      background-color: #1C358F;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Sailors', sans-serif;
+    }
+
+    .see-you-message {
+      color: #F3E7DF;
+      font-size: 1.4em;
+      margin-top: 20px;
+      display: none;
     }
   </style>
 </head>
@@ -137,7 +161,9 @@
   </div>
 
   <div id="inviteOverlay" class="invite-image-overlay">
-    <img src="mori_haus_invite_card.jpg" alt="Mori Haus Invitation">
+    <img id="inviteImage" src="mori_haus_invite_card.jpg" alt="Mori Haus Invitation">
+    <a id="downloadBtn" class="download-button" download="MoriHaus_Invite.jpg" href="mori_haus_invite_card.jpg">Save Invitation</a>
+    <div id="seeYouMsg" class="see-you-message">See you there! ☕</div>
   </div>
 
   <script>
@@ -149,6 +175,8 @@
       const finalEl = document.getElementById('finalText');
       const linkEl = document.getElementById('inviteLink');
       const overlayEl = document.getElementById('inviteOverlay');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const seeYouMsg = document.getElementById('seeYouMsg');
 
       const params = new URLSearchParams(window.location.search);
       const name = params.get('name');
@@ -192,6 +220,12 @@
 
       linkEl.addEventListener('click', function () {
         overlayEl.classList.add('visible');
+      });
+
+      downloadBtn.addEventListener('click', function () {
+        setTimeout(() => {
+          seeYouMsg.style.display = 'block';
+        }, 1000);
       });
     }
   </script>
