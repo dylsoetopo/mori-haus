@@ -267,17 +267,13 @@
       });
 
       downloadBtn.addEventListener('click', function () {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        if (isIOS) {
-          window.open('mori_haus_invite_card.jpg', '_blank');
-        } else {
-          const link = document.createElement('a');
-          link.href = 'mori_haus_invite_card.jpg';
-          link.download = 'MoriHaus_Invite.jpg';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        }
+        const link = document.createElement('a');
+        link.href = 'mori_haus_invite_card.jpg';
+        link.download = 'MoriHaus_Invite.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
         setTimeout(() => {
           overlayEl.classList.remove('visible');
           mainContainer.style.opacity = '0';
