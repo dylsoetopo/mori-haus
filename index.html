@@ -83,7 +83,6 @@
       font-family: 'Sailors', sans-serif;
       font-size: 1.2em;
       padding: 10px;
-      margin-top: 10px;
       border: 2px solid #1C358F;
       color: #1C358F;
       background: #F3E7DF;
@@ -189,7 +188,10 @@
     <div id="text" class="fade-text">psst... you're invited</div>
     <div id="passwordScreen" class="password-screen">
       <div>enter password</div>
-      <input id="passwordInput" type="text" placeholder="password...">
+      <div style="display: flex; align-items: center; margin-top: 10px;">
+        <input id="passwordInput" type="text" placeholder="password..." style="margin-right: 10px;">
+        <button id="submitPassword" style="background-color: #1C358F; color: #F3E7DF; border: none; padding: 10px 16px; font-size: 1.2em; border-radius: 4px; cursor: pointer;">➔</button>
+      </div>
     </div>
     <div id="cherieScreen" class="cherie-screen">
       <img src="cherie_static_image.png" alt="Cherie illustration">
@@ -239,28 +241,35 @@
         inputEl.focus();
       }, 3500);
 
+      function submitPassword() {
+        const val = inputEl.value.trim().toLowerCase();
+        if (val === 'cherie') {
+          passwordEl.classList.remove('visible');
+          cherieEl.classList.add('visible');
+          setTimeout(() => {
+            finalEl.textContent = welcomeText;
+            finalEl.classList.add('visible');
+          }, 3000);
+          setTimeout(() => {
+            finalEl.classList.add('move-up');
+            cherieEl.classList.add('move-up');
+          }, 4200);
+          setTimeout(() => {
+            linkEl.classList.add('visible');
+          }, 4700);
+        } else {
+          inputEl.value = '';
+          inputEl.placeholder = 'try again...';
+        }
+      }
+
       inputEl.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
-          if (inputEl.value.trim().toLowerCase() === 'cherie') {
-            passwordEl.classList.remove('visible');
-            cherieEl.classList.add('visible');
-            setTimeout(() => {
-              finalEl.textContent = welcomeText;
-              finalEl.classList.add('visible');
-            }, 3000);
-            setTimeout(() => {
-              finalEl.classList.add('move-up');
-              cherieEl.classList.add('move-up');
-            }, 4200);
-            setTimeout(() => {
-              linkEl.classList.add('visible');
-            }, 4700);
-          } else {
-            inputEl.value = '';
-            inputEl.placeholder = 'try again...';
-          }
+          submitPassword();
         }
       });
+
+      document.getElementById('submitPassword').addEventListener('click', submitPassword);
 
       linkEl.addEventListener('click', function () {
         overlayEl.classList.add('visible');
