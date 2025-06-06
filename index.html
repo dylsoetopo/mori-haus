@@ -114,7 +114,7 @@
 
     .invite-image-overlay img {
       max-width: 90%;
-      max-height: 80%;
+      max-height: 70vh;
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.6);
       transform: scale(0.95);
@@ -131,15 +131,25 @@
     }
 
     .download-button {
-      margin-top: 20px;
+      margin-top: 16px;
       font-size: 1em;
-      padding: 10px 20px;
+      padding: 10px 18px;
       color: #F3E7DF;
       background-color: #1C358F;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-family: 'Sailors', sans-serif;
+    }
+
+    @media (max-width: 600px) {
+      .invite-image-overlay img {
+        max-height: 55vh;
+      }
+      .download-button {
+        font-size: 0.9em;
+        padding: 8px 14px;
+      }
     }
 
     .final-wave {
@@ -190,7 +200,7 @@
 
   <div id="inviteOverlay" class="invite-image-overlay">
     <img id="inviteImage" src="mori_haus_invite_card.jpg" alt="Mori Haus Invitation">
-    <a id="downloadBtn" class="download-button" download="MoriHaus_Invite.jpg" href="mori_haus_invite_card.jpg">Save Invitation</a>
+    <a id="downloadBtn" class="download-button">Save Invitation</a>
   </div>
 
   <div id="finalWave" class="final-wave">
@@ -257,6 +267,17 @@
       });
 
       downloadBtn.addEventListener('click', function () {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS) {
+          window.open('mori_haus_invite_card.jpg', '_blank');
+        } else {
+          const link = document.createElement('a');
+          link.href = 'mori_haus_invite_card.jpg';
+          link.download = 'MoriHaus_Invite.jpg';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
         setTimeout(() => {
           overlayEl.classList.remove('visible');
           mainContainer.style.opacity = '0';
